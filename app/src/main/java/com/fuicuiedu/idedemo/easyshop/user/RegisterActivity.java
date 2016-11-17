@@ -13,13 +13,21 @@ import android.widget.EditText;
 
 import com.fuicuiedu.idedemo.easyshop.R;
 import com.fuicuiedu.idedemo.easyshop.commons.ActivityUtils;
+import com.fuicuiedu.idedemo.easyshop.commons.LogUtils;
 import com.fuicuiedu.idedemo.easyshop.commons.RegexUtils;
 import com.fuicuiedu.idedemo.easyshop.components.AlertDialogFragment;
 import com.fuicuiedu.idedemo.easyshop.components.ProgressDialogFragment;
+import com.fuicuiedu.idedemo.easyshop.network.EasyShopClient;
+
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -49,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         et_userName.addTextChangedListener(textWatcher);
         et_pwd.addTextChangedListener(textWatcher);
         et_pwdAgain.addTextChangedListener(textWatcher);
@@ -99,8 +107,18 @@ public class RegisterActivity extends AppCompatActivity {
             showUserPasswordError(msg);
             return;
         }
-        // TODO: 2016/11/17 0017 执行注册的网络请求
-        activityUtils.showToast("注册的网络请求待实现");
+
+        Call call = EasyShopClient.getInstance().register(username,password);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                // TODO: 2016/11/17 0017 怎么更新UI 
+            }
+        });
     }
 
     //显示错误提示

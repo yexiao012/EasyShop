@@ -33,4 +33,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //自定义圆形图片组件
     compile 'com.pkmmte.view:circularimageview:1.1'
+    //OkHttp
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    //Okhttp拦截器
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }
