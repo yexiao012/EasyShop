@@ -17,9 +17,14 @@ import com.fuicuiedu.idedemo.easyshop.commons.LogUtils;
 import com.fuicuiedu.idedemo.easyshop.commons.RegexUtils;
 import com.fuicuiedu.idedemo.easyshop.components.AlertDialogFragment;
 import com.fuicuiedu.idedemo.easyshop.components.ProgressDialogFragment;
+import com.fuicuiedu.idedemo.easyshop.model.Result;
 import com.fuicuiedu.idedemo.easyshop.network.EasyShopClient;
 import com.fuicuiedu.idedemo.easyshop.network.UICallBack;
+import com.google.gson.Gson;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -120,9 +125,15 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponseUI(Call call, Response response) {
-                activityUtils.showToast("拿到响应消息！");
+            public void onResponseUI(Call call, String body) {
+
+                //通过Gson解析json字符串，得到结果类
+                Result result = new Gson().fromJson(body,Result.class);
+                LogUtils.e("result=" + result.toString());
+
             }
+
+
         });
     }
 
@@ -132,3 +143,21 @@ public class RegisterActivity extends AppCompatActivity {
         fragment.show(getSupportFragmentManager(), getString(R.string.username_pwd_rule));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
