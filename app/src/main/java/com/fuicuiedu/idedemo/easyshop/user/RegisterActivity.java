@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        Call call = EasyShopClient.getInstance().register(username,password);
+        Call call = EasyShopClient.getInstance().register_Demo(username,password);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -29,9 +29,12 @@ public class EasyShopClient {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+        //用于添加bomb的请求头
+        BombInterceptor bombInterceptor = new BombInterceptor();
 
         okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
+                .addInterceptor(bombInterceptor)
                 .build();
     }
 
@@ -95,4 +98,7 @@ public class EasyShopClient {
 
         return okHttpClient.newCall(request);
     }
+
+
+
 }
