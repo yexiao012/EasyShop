@@ -18,6 +18,7 @@ import com.fuicuiedu.idedemo.easyshop.commons.RegexUtils;
 import com.fuicuiedu.idedemo.easyshop.components.AlertDialogFragment;
 import com.fuicuiedu.idedemo.easyshop.components.ProgressDialogFragment;
 import com.fuicuiedu.idedemo.easyshop.network.EasyShopClient;
+import com.fuicuiedu.idedemo.easyshop.network.UICallBack;
 
 
 import java.io.IOException;
@@ -111,17 +112,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         Call call = EasyShopClient.getInstance().register_Demo(username,password);
-        call.enqueue(new Callback() {
+
+        call.enqueue(new UICallBack() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                //后台执行
+            public void onFailureUI(Call call, IOException e) {
+
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //后台执行
-                // TODO: 2016/11/17 0017 怎么更新UI
-
+            public void onResponseUI(Call call, Response response) {
+                activityUtils.showToast("拿到响应消息！");
             }
         });
     }
