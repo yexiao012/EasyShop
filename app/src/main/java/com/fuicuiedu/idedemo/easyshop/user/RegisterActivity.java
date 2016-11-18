@@ -27,7 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -112,11 +114,14 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                //后台执行
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                // TODO: 2016/11/17 0017 怎么更新UI 
+                //后台执行
+                // TODO: 2016/11/17 0017 怎么更新UI
+
             }
         });
     }
