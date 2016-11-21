@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
-
+    //哈哈
         activityUtils = new ActivityUtils(this);
         //设置一下actionbar
         setSupportActionBar(toolbar);
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         init();
+        //哈哈
     }
 
     //进入页面数据初始化，默认显示为市场页面
