@@ -17,7 +17,7 @@ public class UnLoginFragment extends Fragment {
 
     public UnLoginFragment() {
         // Required empty public constructor
-        //跟新12
+        //跟新
     }
 
 
