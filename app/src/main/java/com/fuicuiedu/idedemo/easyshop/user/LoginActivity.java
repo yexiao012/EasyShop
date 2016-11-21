@@ -15,10 +15,19 @@ import android.widget.EditText;
 import com.fuicuiedu.idedemo.easyshop.R;
 import com.fuicuiedu.idedemo.easyshop.commons.ActivityUtils;
 import com.fuicuiedu.idedemo.easyshop.components.ProgressDialogFragment;
+import com.fuicuiedu.idedemo.easyshop.model.CachePreferences;
+import com.fuicuiedu.idedemo.easyshop.model.User;
+import com.fuicuiedu.idedemo.easyshop.model.UserResult;
+import com.fuicuiedu.idedemo.easyshop.network.EasyShopClient;
+import com.fuicuiedu.idedemo.easyshop.network.UICallBack;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -89,8 +98,31 @@ public class LoginActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                // TODO: 2016/11/17 0017 执行登录的网络请求
-                activityUtils.showToast("登录的网络请求待实现");
+
+                Call call = EasyShopClient.getInstance().login(username,password);
+                call.enqueue(new UICallBack() {
+                    @Override
+                    public void onFailureUI(Call call, IOException e) {
+                        activityUtils.showToast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponseUI(Call call, String body) {
+                        UserResult userResult = new Gson().fromJson(body,UserResult.class);
+                        if (userResult.getCode() == 1){
+                            activityUtils.showToast("登录成功");
+                            User user = userResult.getData();
+                            CachePreferences.setUser(user);
+
+                            // TODO: 2016/11/21 0021 页面跳转
+                        }else if (userResult.getCode() == 2){
+                            activityUtils.showToast(userResult.getMessage());
+                        }else{
+                            activityUtils.showToast("未知错误！");
+                        }
+                    }
+                });
+
                 break;
             case R.id.tv_register:
                 activityUtils.startActivity(RegisterActivity.class);

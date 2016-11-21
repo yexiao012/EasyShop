@@ -6,8 +6,11 @@ package com.fuicuiedu.idedemo.easyshop.network;
 public class EasyShopApi {
 
     //服务器地址
-    static String BASE_URL = "http://wx.feicuiedu.com:9094/yitao/";
+    static final String BASE_URL = "http://wx.feicuiedu.com:9094/yitao/";
 
     //注册接口
-    static String REGISTER = "UserWeb?method=register";
+    static final String REGISTER = "UserWeb?method=register";
+
+    //登录接口
+    static final String LOGIN = "UserWeb?method=login";
 }

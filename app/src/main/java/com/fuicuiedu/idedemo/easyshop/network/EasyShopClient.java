@@ -65,4 +65,28 @@ public class EasyShopClient {
 
         return okHttpClient.newCall(request);
     }
+
+    /**
+     * 登录
+     * <p>
+     * post
+     *
+     * @param username 用户名
+     * @param password 密码
+     */
+    public Call login(String username, String password) {
+        //表单形式构建请求体
+        RequestBody requestBody = new FormBody.Builder()
+                .add("username", username)
+                .add("password", password)
+                .build();
+
+        //构建请求
+        Request request = new Request.Builder()
+                .url(EasyShopApi.BASE_URL + EasyShopApi.LOGIN)
+                .post(requestBody) //ctrl+p查看参数
+                .build();
+
+        return okHttpClient.newCall(request);
+    }
 }
