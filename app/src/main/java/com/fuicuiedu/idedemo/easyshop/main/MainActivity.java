@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //哈哈哈
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         init();
-        //哈哈
     }
 
     //进入页面数据初始化，默认显示为市场页面
