@@ -13,18 +13,16 @@ import android.widget.EditText;
 
 import com.fuicuiedu.idedemo.easyshop.R;
 import com.fuicuiedu.idedemo.easyshop.commons.ActivityUtils;
-import com.fuicuiedu.idedemo.easyshop.commons.LogUtils;
 import com.fuicuiedu.idedemo.easyshop.commons.RegexUtils;
 import com.fuicuiedu.idedemo.easyshop.components.AlertDialogFragment;
 import com.fuicuiedu.idedemo.easyshop.components.ProgressDialogFragment;
-import com.fuicuiedu.idedemo.easyshop.model.Result;
+import com.fuicuiedu.idedemo.easyshop.model.CachePreferences;
+import com.fuicuiedu.idedemo.easyshop.model.User;
+import com.fuicuiedu.idedemo.easyshop.model.UserResult;
 import com.fuicuiedu.idedemo.easyshop.network.EasyShopClient;
 import com.fuicuiedu.idedemo.easyshop.network.UICallBack;
 import com.google.gson.Gson;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -32,10 +30,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -116,24 +110,34 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        Call call = EasyShopClient.getInstance().register_Demo(username,password);
+        Call call = EasyShopClient.getInstance().register(username,password);
 
         call.enqueue(new UICallBack() {
             @Override
             public void onFailureUI(Call call, IOException e) {
-
+                activityUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onResponseUI(Call call, String body) {
+                //拿到返回的结果
+                UserResult userResult = new Gson().fromJson(body,UserResult.class);
+                //根据结果码处理不同情况
+                if (userResult.getCode() == 1){
+                    activityUtils.showToast("注册成功！");
+                    //拿到用户的实体类
+                    User user = userResult.getData();
+                    //将用户信息保存到本地配置里
+                    CachePreferences.setUser(user);
 
-                //通过Gson解析json字符串，得到结果类
-                Result result = new Gson().fromJson(body,Result.class);
-                LogUtils.e("result=" + result.toString());
-
+                    // TODO: 2016/11/21 0021 页面跳转实现，使用eventbus
+                    // TODO: 2016/11/21 0021 还需要登录环信，待实现
+                }else if (userResult.getCode() == 2){
+                    activityUtils.showToast(userResult.getMessage());
+                }else{
+                    activityUtils.showToast("未知错误！");
+                }
             }
-
-
         });
     }
 

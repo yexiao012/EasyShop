@@ -29,12 +29,7 @@ public class EasyShopClient {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        //用于添加bomb的请求头拦截器
-        BombInterceptor bombInterceptor = new BombInterceptor();
-
         okHttpClient = new OkHttpClient.Builder()
-                //用于添加bomb的请求头拦截器
-                .addInterceptor(bombInterceptor)
                 //日志拦截器
                 .addInterceptor(interceptor)
                 .build();
@@ -70,37 +65,4 @@ public class EasyShopClient {
 
         return okHttpClient.newCall(request);
     }
-
-
-    /**
-     * 注册
-     * <p>
-     * post
-     *
-     * @param username 用户名
-     * @param password 密码
-     */
-    public Call register_Demo(String username, String password) {
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("username", username);
-            jsonObject.put("password", password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        RequestBody body = RequestBody.create(null,jsonObject.toString());
-
-        //构建请求
-        Request request = new Request.Builder()
-                .url(EasyShopApi_Demo.REGISTER)
-                .post(body)
-                .build();
-
-        return okHttpClient.newCall(request);
-    }
-
-
-
 }
