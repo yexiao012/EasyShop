@@ -1,4 +1,4 @@
-package com.fuicuiedu.idedemo.easyshop.main;
+﻿package com.fuicuiedu.idedemo.easyshop.main;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ public class UnLoginFragment extends Fragment {
 
     public UnLoginFragment() {
         // Required empty public constructor
-        //跟新
+        //跟新12
     }
 
 
