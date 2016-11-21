@@ -1,4 +1,4 @@
-﻿package com.fuicuiedu.idedemo.easyshop.main;
+package com.fuicuiedu.idedemo.easyshop.main;
 
 
 import android.os.Bundle;
